@@ -1,15 +1,19 @@
 
-from enum import Enum
-from flask_login import UserMixin
+import uuid
 from datetime import datetime
-from sqlalchemy import MetaData, Integer, Column, String, JSON, DateTime, Text, Boolean
+from enum import Enum
+from sqlalchemy import Enum as EnumDB, JSON
 
+from flask_login import UserMixin
+from sqlalchemy import Column
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from flask_sqlalchemy import SQLAlchemy
 
 Base = declarative_base()
 
 db = SQLAlchemy()
+
 
 
 class SaleStatus(Enum):
@@ -66,7 +70,7 @@ class User(Base, db.Model, UserMixin):
     lastname = db.Column(db.String)
     role = db.Column(db.String)
     role = Column(db.Enum(Roles), default=Roles.CUSTOMER)
-    basket_items = db.relationship("CartItems", backref=db.backref("user", lazy=True, uselist=False))
+    basket_items = db.relationship("CartItems", backref=db.backref("user", lazy=True))
     added_on = db.Column(db.DateTime, default=datetime.utcnow)
 
 
@@ -88,7 +92,7 @@ class Inventory(Base, db.Model):
     """
     __tablename__ = 'inventory'
     id = db.Column(db.Integer, primary_key=True)
-    added_by = db.Column(db.Integer, db.ForeignKey('user.id'))
+    added_by = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(255))
     original_price = db.Column(db.Float)
     promotion_price = db.Column(db.Float)
@@ -97,7 +101,6 @@ class Inventory(Base, db.Model):
     description = db.Column(db.Text)
     image_url = db.Column(db.String(255))
     weight = db.Column(db.Integer)
-
     slug = db.Column(db.String(255))
     added_on = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -116,7 +119,7 @@ class CartItems(Base, db.Model):
     """
     __tablename__ = 'cart_items'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     inventory_id = db.Column(db.Integer, db.ForeignKey('inventory.id'))
     quantity = db.Column(db.Integer)
     amount = db.Column(db.Float)
@@ -140,9 +143,8 @@ class Sale(Base, db.Model):
     """
     __tablename__ = 'sales'
     id = db.Column(db.Integer, primary_key=True)
-    served_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     total = db.Column(db.Float)
-    bought_by = db.Column(db.Integer, db.ForeignKey('user.id', name="customer_details"))
+    bought_by = db.Column(db.Integer, db.ForeignKey('users.id', name="customer_details"))
     discount = db.Column(db.Float, default=0)
     payment_mode = db.Column(db.Enum(PaymentMode), default=PaymentMode.MPESA)
     status = db.Column(db.Enum(SaleStatus), default=SaleStatus.PENDING)
@@ -168,8 +170,8 @@ class SaleData(Base, db.Model):
     sale_price = db.Column(db.Float)
     discount = db.Column(db.Float, default=0)  # Individual product discount
     inventory_id = db.Column(db.Integer, db.ForeignKey('inventory.id'))
-    sale_id = db.Column(db.Integer, db.ForeignKey('sale.id'))
+    sale_id = db.Column(db.Integer, db.ForeignKey('sales.id'))
     sale = db.relationship('Sale', backref=db.backref('products', lazy=True))
     quantity = db.Column(db.Integer, default=1)
     added_on = db.Column(db.DateTime, default=datetime.utcnow)
-    inventory = db.relationship("Inventory", backref=db.backref("inventory", lazy=True, uselist=False))
+    inventory = db.relationship("Inventory", backref=db.backref("sale_data", lazy=True))

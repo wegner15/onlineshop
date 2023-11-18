@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from flask import Flask, render_template, request, flash, redirect, jsonify
+from flask import Flask, render_template, request, flash, redirect, jsonify, url_for
 from flask_login import LoginManager, current_user, login_required
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
@@ -19,6 +19,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=300)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 app.config['SECRET_KEY'] = config("SECRET_KEY")
+Migrate(app, db, compare_type=True, render_as_batch=True)
+db.init_app(app)
 
 app.register_blueprint(authentication_blueprint, url_prefix='/auth')
 
@@ -35,8 +37,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-Migrate(app, db, compare_type=True, render_as_batch=True)
-db.init_app(app)
 
 csrf = CSRFProtect(app)
 
@@ -45,7 +45,7 @@ csrf = CSRFProtect(app)
 @with_appcontext
 def create_db():
     with app.app_context():
-        result = create_database()
+        result = db_create_database()
         click.echo(result)
 
 

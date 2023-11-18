@@ -1,11 +1,16 @@
 from database_models import *
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 from errors_messages import Errors
 
 
-def create_database():
+def db_create_database():
     db.create_all()
+    db.reflect()
+
+    # List all table names
+    table_names = db.engine.table_names()
+    print(table_names)
     print("Database updated successfully")
 
 
