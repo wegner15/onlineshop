@@ -1,15 +1,6 @@
-import uuid
-from passlib.hash import scrypt
-
 from database_models import *
 from werkzeug.security import generate_password_hash, check_password_hash
-import requests
-from flask import url_for
-import json
-import random
-import string
-from sqlalchemy import desc, or_
-from datetime import datetime, timedelta
+
 from errors_messages import Errors
 
 
