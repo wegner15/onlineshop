@@ -6,11 +6,7 @@ from errors_messages import Errors
 
 def db_create_database():
     db.create_all()
-    db.reflect()
 
-    # List all table names
-    table_names = db.engine.table_names()
-    print(table_names)
     print("Database updated successfully")
 
 
