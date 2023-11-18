@@ -20,9 +20,9 @@
     </a>
     <div class="mt-2 mb-5 flex items-center justify-between">
       <p>
-        <span class="text-3xl font-bold text-slate-900">Ksh. {{ product.promotion_price }}</span>
-        <span class="text-sm text-slate-900 line-through">Ksh. {{ product.original_price }}</span>
-          <span class="text-sm text-slate-900">Save Ksh. {{ product.original_price - product.promotion_price }}</span>
+        <span class="text-3xl font-bold text-slate-900">Ksh. {{ product.promotion_price|commify }}</span>
+        <span class="text-sm text-slate-900 line-through">Ksh. {{ product.original_price|commify }}</span>
+          <span class="text-sm text-slate-900">Save Ksh. {{ (product.original_price - product.promotion_price)|commify }}</span>
 
       </p>
       <div class="flex items-center">

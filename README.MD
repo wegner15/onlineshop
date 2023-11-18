@@ -15,7 +15,7 @@ As a Backend Engineer developing an online shop web application, here's my execu
 - **Develop RESTful APIs**: I'll build RESTful APIs for handling product listings, user authentication, basket functionalities, and order processing. RESTful architecture ensures a standard, efficient, and scalable way of building web services.
 - **Implement CRUD Operations**: For managing products and user data, I'll implement CRUD (Create, Read, Update, Delete) operations. This will form the core functionality of the online shop, allowing users to interact with the product listings and manage their accounts.
 - **Session-Based User Authentication**: Implementing a secure, session-based authentication system will ensure that user sessions are managed safely, providing a secure and personalized experience for each user.
-- **Database Schema Design**: I'll design a comprehensive database schema in PostgreSQL to store product details, user information, orders, and basket contents. 
+- **Database Schema Design**: I'll design a comprehensive database schema in PostgreSQL to store product details, user information, orders, and basket contents. The actual implementation has been done with sqlite to improve portability since, it doesn't require a complex installation to run.
 
 ### Frontend Integration
 - **Integrate with Jinja Templates**: I'll use Jinja templates for rendering the frontend. Jinja is a powerful templating engine that integrates seamlessly with Flask, allowing for dynamic content rendering in the HTML templates.
@@ -67,3 +67,9 @@ SQLALCHEMY_DATABASE_URI='sqlite:///database.sqlite'
 flask run --port 8001
 ```
 Now you can navigate to [http://localhost:8001](http://localhost:8001) to access the home page.
+
+## Adding Products
+
+Addition of products should be done by the administrator. However, since the administrator account has not been fully implemented, one can add product through 
+the direct link `base_url/add-product`
+
