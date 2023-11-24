@@ -2,3 +2,4 @@
 /.idea
 /instance
 /migrations
+/database.sqlite

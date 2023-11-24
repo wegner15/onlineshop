@@ -73,3 +73,21 @@ Now you can navigate to [http://localhost:8001](http://localhost:8001) to access
 Addition of products should be done by the administrator. However, since the administrator account has not been fully implemented, one can add product through 
 the direct link `base_url/add-product`
 
+## Available Functionality 
+### Filter 
+One can filter items based on their weights. The weight filter allows the items between the range of provided weights (in kg) to be displayed.
+
+
+### Basket
+
+---
+**NOTE:**
+The basket is only accessible to authenticated users.
+---
+
+The site provides for adding an item to the basket and checking out the basket as a whole.
+During the checkout, one can choose between the two payment methods available, bank (method 1) or mpesa(method 2). 
+The payment flow is not fully implemented, therefore, the items will just be moved to sales, which can be viewed through the sales button.
+
+
+### 
