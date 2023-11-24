@@ -76,7 +76,7 @@ def db_add_sale(product_id_list, user_id, payment_method):
 
     for product_id, quantity in product_id_list:
 
-        product = Inventory.query.get(product_id)
+        product = db.session.get(Inventory, product_id)
         if product:
             products_total += product.promotion_price
             new_sale_data = SaleData(inventory_id=product_id, sale_id=new_sale.id, quantity=quantity)
