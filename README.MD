@@ -60,7 +60,7 @@ SECRET_KEY='aeOo$XAqGh6nm3Zfk9J5ZqfKI#6Xi^XICAvB@y!'
 SQLALCHEMY_DATABASE_URI='sqlite:///database.sqlite'
 ```
 
-### Running the application
+### Running the Application
 
 ```commandline
 
@@ -68,6 +68,13 @@ flask run --port 8001
 ```
 Now you can navigate to [http://localhost:8001](http://localhost:8001) to access the home page.
 
+### Running Tests
+
+Tests can be run through the following command:
+
+```commandline
+pytest
+```
 ## Adding Products
 
 Addition of products should be done by the administrator. However, since the administrator account has not been fully implemented, one can add product through 
@@ -86,8 +93,9 @@ The basket is only accessible to authenticated users.
 ---
 
 The site provides for adding an item to the basket and checking out the basket as a whole.
-During the checkout, one can choose between the two payment methods available, bank (method 1) or mpesa(method 2). 
+
+
+### Checkout
+
+After adding the items to basket, it is possible to check out the basket. During the checkout, one can choose between the two payment methods available, bank (method 1) or mpesa(method 2). 
 The payment flow is not fully implemented, therefore, the items will just be moved to sales, which can be viewed through the sales button.
-
-
-### 
